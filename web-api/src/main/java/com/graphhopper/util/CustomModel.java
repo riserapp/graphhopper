@@ -150,7 +150,7 @@ public class CustomModel {
         return this;
     }
 
-    public double getHeadingPenalty() {
+    public Double getHeadingPenalty() {
         return headingPenalty;
     }
 
@@ -177,6 +177,8 @@ public class CustomModel {
 
         if (queryModel.getDistanceInfluence() != null)
             mergedCM.distanceInfluence = queryModel.distanceInfluence;
+        if (queryModel.getHeadingPenalty() != null)
+            mergedCM.headingPenalty = queryModel.headingPenalty;
         mergedCM.speedStatements.addAll(queryModel.getSpeed());
         mergedCM.priorityStatements.addAll(queryModel.getPriority());
         mergedCM.addAreas(queryModel.getAreas());

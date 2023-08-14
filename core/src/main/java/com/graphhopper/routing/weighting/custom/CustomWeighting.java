@@ -110,6 +110,8 @@ public final class CustomWeighting extends AbstractWeighting {
         if (Double.isInfinite(seconds)) return Double.POSITIVE_INFINITY;
         double distanceCosts = distance * distanceInfluence;
         if (Double.isInfinite(distanceCosts)) return Double.POSITIVE_INFINITY;
+        // add penalty at start/stop/via points
+        if (edgeState.get(EdgeIteratorState.UNFAVORED_EDGE)) seconds += headingPenaltySeconds;
         double priority = edgeToPriorityMapping.get(edgeState, reverse);
         // special case to avoid NaN for barrier edges (where time is often 0s)
         if (priority == 0 && seconds == 0) return Double.POSITIVE_INFINITY;
