@@ -24,7 +24,9 @@ public class MotorcyclePriorityParser implements TagParser {
         this.priorityWayEncoder = priorityWayEncoder;
 
         avoidSet.add("motorway");
+        avoidSet.add("motorway_link");
         avoidSet.add("trunk");
+        avoidSet.add("trunk_link");
         avoidSet.add("residential");
 
         preferSet.add("primary");
