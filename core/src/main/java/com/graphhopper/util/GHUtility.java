@@ -192,17 +192,11 @@ public class GHUtility {
                 edge.getEdge());
     }
 
-    public static void buildRandomGraph(Graph graph, Random random, int numNodes, double meanDegree,
-                                        boolean allowZeroDistance, DecimalEncodedValue speedEnc, Double speed,
-                                        double pBothDir, double pRandomDistanceOffset) {
-        buildRandomGraph(graph, random, numNodes, meanDegree, allowZeroDistance, null, speedEnc, speed, pBothDir, pRandomDistanceOffset);
-    }
-
     /**
      * @param speed if null a random speed will be assigned to every edge
      */
     public static void buildRandomGraph(Graph graph, Random random, int numNodes, double meanDegree,
-                                        boolean allowZeroDistance, BooleanEncodedValue accessEnc, DecimalEncodedValue speedEnc, Double speed,
+                                        boolean allowZeroDistance, DecimalEncodedValue speedEnc, Double speed,
                                         double pBothDir, double pRandomDistanceOffset) {
         if (numNodes < 2 || meanDegree < 1) {
             throw new IllegalArgumentException("numNodes must be >= 2, meanDegree >= 1");
@@ -233,10 +227,6 @@ public class GHUtility {
             // using bidirectional edges will increase mean degree of graph above given value
             boolean bothDirections = random.nextDouble() < pBothDir;
             EdgeIteratorState edge = graph.edge(from, to).setDistance(distance);
-            if (accessEnc != null) {
-                edge.set(accessEnc, true);
-                if (bothDirections) edge.setReverse(accessEnc, true);
-            }
             double fwdSpeed = 10 + random.nextDouble() * 110;
             double bwdSpeed = 10 + random.nextDouble() * 110;
             // if an explicit speed is given we discard the random speeds and use the given one instead
@@ -246,11 +236,7 @@ public class GHUtility {
             if (speedEnc != null) {
                 edge.set(speedEnc, fwdSpeed);
                 if (speedEnc.isStoreTwoDirections())
-                    edge.setReverse(speedEnc, bwdSpeed);
-            }
-            if (accessEnc == null && speedEnc != null) {
-                if (!bothDirections)
-                    edge.setReverse(speedEnc, 0);
+                    edge.setReverse(speedEnc, !bothDirections ? 0 : bwdSpeed);
             }
             numEdges++;
         }
@@ -581,9 +567,10 @@ public class GHUtility {
      */
     public static long calcMillisWithTurnMillis(Weighting weighting, EdgeIteratorState edgeState, boolean reverse, int prevOrNextEdgeId) {
         long edgeMillis = weighting.calcEdgeMillis(edgeState, reverse);
-        if (!EdgeIterator.Edge.isValid(prevOrNextEdgeId)) {
+        if (edgeMillis == Long.MAX_VALUE)
             return edgeMillis;
-        }
+        if (!EdgeIterator.Edge.isValid(prevOrNextEdgeId))
+            return edgeMillis;
         // should we also separate weighting vs. time for turn? E.g. a fast but dangerous turn - is this common?
         // todo: why no first/last orig edge here as in calcWeight ?
 //        final int origEdgeId = reverse ? edgeState.getOrigEdgeLast() : edgeState.getOrigEdgeFirst();
@@ -591,6 +578,8 @@ public class GHUtility {
         long turnMillis = reverse
                 ? weighting.calcTurnMillis(origEdgeId, edgeState.getBaseNode(), prevOrNextEdgeId)
                 : weighting.calcTurnMillis(prevOrNextEdgeId, edgeState.getBaseNode(), origEdgeId);
+        if (turnMillis == Long.MAX_VALUE)
+            return turnMillis;
         return edgeMillis + turnMillis;
     }
 
