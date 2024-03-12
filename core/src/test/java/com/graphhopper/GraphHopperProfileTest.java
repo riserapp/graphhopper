@@ -42,7 +42,7 @@ public class GraphHopperProfileTest {
         assertEquals("my_car", profile.getName());
         assertEquals("car", profile.getVehicle());
         assertEquals("custom", profile.getWeighting());
-        assertTrue(profile.isTurnCosts());
+        assertTrue(profile.hasTurnCosts());
         assertEquals(2, profile.getHints().toMap().size());
         assertEquals("bar", profile.getHints().getString("foo", ""));
         assertEquals("buzz", profile.getHints().getString("baz", ""));
@@ -63,14 +63,7 @@ public class GraphHopperProfileTest {
         final GraphHopper hopper = new GraphHopper();
         hopper.setGraphHopperLocation(GH_LOCATION).setStoreOnFlush(false).
                 setProfiles(new Profile("profile").setVehicle("your_car"));
-        assertIllegalArgument(hopper::importOrLoad, "entry in vehicle list not supported: your_car");
-    }
-
-    @Test
-    public void vehicleDoesNotExist_error2() {
-        final GraphHopper hopper = new GraphHopper().setGraphHopperLocation(GH_LOCATION).setStoreOnFlush(false).
-                setProfiles(new Profile("profile").setVehicle("your_car"));
-        assertIllegalArgument(hopper::importOrLoad, "entry in vehicle list not supported: your_car");
+        assertIllegalArgument(hopper::importOrLoad, "Unknown vehicle: 'your_car'");
     }
 
     @Test
