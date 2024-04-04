@@ -43,13 +43,6 @@ import java.util.Locale;
  */
 public class ResponsePathSerializer {
 
-    /**
-     * This includes the required attribution for OpenStreetMap.
-     * Do not hesitate to  mention us and link us in your about page
-     * https://support.graphhopper.com/support/search/solutions?term=attribution
-     */
-    public static final List<String> COPYRIGHTS = Arrays.asList("GraphHopper", "OpenStreetMap contributors");
-
     public static String encodePolyline(PointList poly, boolean includeElevation, double precision) {
         StringBuilder sb = new StringBuilder(Math.max(20, poly.size() * 3));
         int size = poly.size();
@@ -57,14 +50,14 @@ public class ResponsePathSerializer {
         int prevLon = 0;
         int prevEle = 0;
         for (int i = 0; i < size; i++) {
-            int num = (int) Math.floor(poly.getLat(i) * precision);
+            int num = (int) Math.round(poly.getLat(i) * precision);
             encodeNumber(sb, num - prevLat);
             prevLat = num;
-            num = (int) Math.floor(poly.getLon(i) * precision);
+            num = (int) Math.round(poly.getLon(i) * precision);
             encodeNumber(sb, num - prevLon);
             prevLon = num;
             if (includeElevation) {
-                num = (int) Math.floor(poly.getEle(i) * 100);
+                num = (int) Math.round(poly.getEle(i) * 100);
                 encodeNumber(sb, num - prevEle);
                 prevEle = num;
             }
@@ -86,16 +79,15 @@ public class ResponsePathSerializer {
         sb.append((char) (num));
     }
 
-    public static ObjectNode jsonObject(GHResponse ghRsp, String osmDate, boolean enableInstructions,
-                                        boolean calcPoints, boolean enableElevation, boolean pointsEncoded, double took) {
+    public record Info(List<String> copyrights, long took, String roadDataTimeStamp) {
+
+    }
+
+    public static ObjectNode jsonObject(GHResponse ghRsp, Info info, boolean enableInstructions,
+                                        boolean calcPoints, boolean enableElevation, boolean pointsEncoded) {
         ObjectNode json = JsonNodeFactory.instance.objectNode();
         json.putPOJO("hints", ghRsp.getHints().toMap());
-        final ObjectNode info = json.putObject("info");
-        info.putPOJO("copyrights", COPYRIGHTS);
-        info.put("took", Math.round(took));
-        if (!osmDate.isEmpty())
-            info.put("road_data_timestamp", osmDate);
-
+        json.putPOJO("info", info);
         ArrayNode jsonPathList = json.putArray("paths");
         for (ResponsePath p : ghRsp.getAll()) {
             ObjectNode jsonPath = jsonPathList.addObject();
