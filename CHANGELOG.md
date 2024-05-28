@@ -1,5 +1,11 @@
-### 9.0 [not yet released]
+### 10.0 [not yet released]
 
+- constructor of BaseGraph.Builder uses byte instead of integer count.
+- KeyValue is now KValue as it holds the value only. Note, the two parameter constructor uses one value for the forward and one for the backward direction (and no longer "key, value")
+
+### 9.0 [23 Apr 2024]
+
+- max_slope is now a signed decimal, see #2955
 - move sac_scale handling out of foot_access parser and made foot safer via lowering to sac_scale<2, same for hike sac_scale<5
 - removed shortest+fastest weightings, #2938
 - u_turn_costs information is no longer stored in profile. Use the TurnCostsConfig instead

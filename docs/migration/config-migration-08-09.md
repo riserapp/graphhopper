@@ -81,17 +81,13 @@ profiles:
 
 # graph.encoded_values
 
+All encoded values that are used in a custom models must be listed here.
+
 If you used a property like block_private=false for e.g. the `car` vehicle, you can now use this property for the encoded value `car_access`: 
 
 ```
   graph.encoded_values: car_access|block_private=false
 ```
-
-Note, that all encoded values in the custom models are automatically added
-to the graph, but also automatically removed if you remove them from 
-the custom model. So you have to ensure that all the path details and 
-encoded values which you need for client-side custom models are listed in 
-`graph.encoded_values`!
 
 # shortest and fastest weighting
 
@@ -130,3 +126,11 @@ new default and show the conditional restriction value via the new path details
 `access:conditional`, `vehicle:conditional` etc.
 See how we utilized this for [GraphHopper Maps](https://graphhopper.com/maps/?point=50.909136%2C14.213924&point=50.90918%2C14.213549&profile=foot)
 with a separate route hint (icon below the route distance).
+
+# max_slope
+
+Is now a signed value. To get the previous behavious use:
+
+```
+Math.abs(max_slope)
+```

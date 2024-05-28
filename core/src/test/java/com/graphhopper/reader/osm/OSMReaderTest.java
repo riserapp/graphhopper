@@ -282,7 +282,7 @@ public class OSMReaderTest {
         while (iter.next()) {
             assertEquals(DistanceCalcEarth.DIST_EARTH.calcDistance(iter.fetchWayGeometry(FetchMode.ALL)), iter.getDistance(), 1.e-3);
         }
-        assertEquals(35.609, graph.getEdgeIteratorState(0, Integer.MIN_VALUE).getDistance(), 1.e-3);
+        assertEquals(35.612, graph.getEdgeIteratorState(0, Integer.MIN_VALUE).getDistance(), 1.e-3);
         assertEquals(75.256, graph.getEdgeIteratorState(1, Integer.MIN_VALUE).getDistance(), 1.e-3);
         assertEquals(143.332, graph.getEdgeIteratorState(2, Integer.MIN_VALUE).getDistance(), 1.e-3);
     }
@@ -1001,7 +1001,7 @@ public class OSMReaderTest {
             setStoreOnFlush(false);
             setOSMFile(osmFile);
             setGraphHopperLocation(dir);
-            String str = "max_width,max_height,max_weight";
+            String str = "max_width,max_height,max_weight,foot_access, foot_priority, foot_average_speed, car_access, car_average_speed, bike_access, bike_priority, bike_average_speed";
             setEncodedValuesString(str);
             setProfiles(
                     TestProfiles.accessSpeedAndPriority("foot"),
