@@ -153,8 +153,8 @@
                         <configuration>
                             <!--suppress UnresolvedMavenProperty (IntelliJ shows an error otherwise...)-->
                             <arguments>
-                                --loglevel verbose pack --pack-destination=${basedir}/target
-                                @graphhopper/graphhopper-maps-bundle@${graphhopper-maps.version}
+                                pack --pack-destination=${basedir}/target
+                                @graphhopper/graphhopper-maps-bundle
                             </arguments>
                         </configuration>
                     </execution>
