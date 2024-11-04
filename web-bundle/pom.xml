@@ -153,8 +153,10 @@
                         <configuration>
                             <!--suppress UnresolvedMavenProperty (IntelliJ shows an error otherwise...)-->
                             <arguments>
+                                --registry=https://registry.npmjs.org
                                 view
                                 @graphhopper/graphhopper-maps-bundle@${graphhopper-maps.version}
+                                --loglevel=verbose
                             </arguments>
                         </configuration>
                     </execution>
@@ -167,8 +169,10 @@
                         <configuration>
                             <!--suppress UnresolvedMavenProperty (IntelliJ shows an error otherwise...)-->
                             <arguments>
+                                --registry=https://registry.npmjs.org
                                 pack --pack-destination=${basedir}/target
                                 @graphhopper/graphhopper-maps-bundle@${graphhopper-maps.version}
+                                --loglevel=verbose
                             </arguments>
                         </configuration>
                     </execution>
