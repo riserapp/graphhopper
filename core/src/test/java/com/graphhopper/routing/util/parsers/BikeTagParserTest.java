@@ -228,6 +228,12 @@ public class BikeTagParserTest extends AbstractBikeTagParserTester {
 
         way.clearTags();
         way.setTag("highway", "track");
+        way.setTag("surface", "concrete");
+        way.setTag("vehicle", "agricultural");
+        assertPriorityAndSpeed(UNCHANGED, PUSHING_SECTION_SPEED, way);
+
+        way.clearTags();
+        way.setTag("highway", "track");
         way.setTag("tracktype", "grade1");
         assertPriorityAndSpeed(UNCHANGED, 18, way);
 
@@ -361,6 +367,14 @@ public class BikeTagParserTest extends AbstractBikeTagParserTester {
 
         way.setTag("smoothness", "impassable");
         assertEquals(MIN_SPEED, getSpeedFromFlags(way), 0.01);
+    }
+
+    @Test
+    public void testLowMaxSpeedIsIgnored() {
+        ReaderWay way = new ReaderWay(1);
+        way.setTag("highway", "residential");
+        way.setTag("maxspeed", "3");
+        assertEquals(18, getSpeedFromFlags(way), 0.01);
     }
 
     @Test
