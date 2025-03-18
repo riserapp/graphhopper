@@ -151,7 +151,7 @@
                         <configuration>
                             <target>
                                 <untar compression="gzip"
-                                       src="${parent.basedir}/graphhopper-graphhopper-maps-bundle-0.0.0-4718098d1db1798841a4d12f1727e8e8f7eab202.tgz"
+                                       src="${basedir}/../graphhopper-graphhopper-maps-bundle-0.0.0-4718098d1db1798841a4d12f1727e8e8f7eab202.tgz"
                                        dest="${basedir}/target/classes/com/graphhopper/maps">
                                     <patternset>
                                         <include name="package/dist/**"/>
