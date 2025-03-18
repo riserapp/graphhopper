@@ -146,7 +146,17 @@
                     </execution>
                     <execution>
                         <id>download graphhopper maps</id>
-                        <phase>none</phase> <!-- disable this execution temporarily -->
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <!--suppress UnresolvedMavenProperty (IntelliJ shows an error otherwise...)-->
+                            <arguments>
+                                pack --pack-destination=${basedir}/target
+                                @graphhopper/graphhopper-maps-bundle@${graphhopper-maps.version}
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
