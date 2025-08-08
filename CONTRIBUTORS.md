@@ -19,6 +19,7 @@ Here is an overview:
  * ChristophKaser, agrees to the project's CLA, improved Android compatibility #1207
  * Christoph Lingg, elevation smoothing #2772
  * chucre, add special JSON output format, see #41
+ * ctriley, added busway support
  * daisy1754, fixed usage of graphhopper.sh script
  * dardin88, instructions improved
  * dewos, web API bug fixes
@@ -48,6 +49,7 @@ Here is an overview:
  * jessLryan, max elevation can now be negative
  * joe-akeem, improvements like #2158
  * JohannesPelzer, improved GPX information and various other things
+ * karololszacki, introduce `navigation_transport_mode` option for Profiles to easily set which Voice Guidance distances to use
  * karussell, one of the core developers
  * khuebner, initial turn costs support
  * kodonnell, adding support for CH and other algorithms (#60) and penalizing inner-link U-turns (#88)

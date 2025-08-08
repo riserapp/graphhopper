@@ -26,7 +26,7 @@ import com.graphhopper.util.PMap;
 
 import java.util.*;
 
-import static com.graphhopper.routing.util.parsers.OSMTemporalAccessParser.hasTemporalRestriction;
+import static com.graphhopper.routing.util.parsers.OSMTemporalAccessParser.hasPermissiveTemporalRestriction;
 
 public class CarAccessParser extends AbstractAccessParser implements TagParser {
 
@@ -81,14 +81,14 @@ public class CarAccessParser extends AbstractAccessParser implements TagParser {
         String firstValue = firstIndex < 0 ? "" : way.getTag(restrictionKeys.get(firstIndex), "");
         if (highwayValue == null) {
             if (FerrySpeedCalculator.isFerry(way)) {
-                if (restrictedValues.contains(firstValue))
-                    return WayAccess.CAN_SKIP;
-                if (intendedValues.contains(firstValue) ||
+                if (allowedValues.contains(firstValue) ||
                         // implied default is allowed only if foot and bicycle is not specified:
                         firstValue.isEmpty() && !way.hasTag("foot") && !way.hasTag("bicycle") ||
                         // if hgv is allowed then smaller trucks and cars are allowed too
                         way.hasTag("hgv", "yes"))
                     return WayAccess.FERRY;
+                if (restrictedValues.contains(firstValue))
+                    return WayAccess.CAN_SKIP;
             }
             return WayAccess.CAN_SKIP;
         }
@@ -109,11 +109,14 @@ public class CarAccessParser extends AbstractAccessParser implements TagParser {
         // multiple restrictions needs special handling
         if (firstIndex >= 0) {
             String[] restrict = firstValue.split(";");
+            // if any of the values allows access then return early (regardless of the order)
             for (String value : restrict) {
-                if (restrictedValues.contains(value) && !hasTemporalRestriction(way, firstIndex, restrictionKeys))
-                    return WayAccess.CAN_SKIP;
-                if (intendedValues.contains(value))
+                if (allowedValues.contains(value))
                     return WayAccess.WAY;
+            }
+            for (String value : restrict) {
+                if (restrictedValues.contains(value) && !hasPermissiveTemporalRestriction(way, firstIndex, restrictionKeys, allowedValues))
+                    return WayAccess.CAN_SKIP;
             }
         }
 
