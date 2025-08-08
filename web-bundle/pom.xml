@@ -130,37 +130,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.1</version>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v20.14.0</nodeVersion>
-                            <npmVersion>10.7.0</npmVersion>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>download graphhopper maps</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <!--suppress UnresolvedMavenProperty (IntelliJ shows an error otherwise...)-->
-                            <arguments>
-                                pack --pack-destination=${basedir}/target
-                                @graphhopper/graphhopper-maps-bundle@${graphhopper-maps.version}
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -182,7 +151,7 @@
                         <configuration>
                             <target>
                                 <untar compression="gzip"
-                                       src="${basedir}/target/graphhopper-graphhopper-maps-bundle-${graphhopper-maps.version}.tgz"
+                                       src="${basedir}/../graphhopper-graphhopper-maps-bundle-0.0.0-4718098d1db1798841a4d12f1727e8e8f7eab202.tgz"
                                        dest="${basedir}/target/classes/com/graphhopper/maps">
                                     <patternset>
                                         <include name="package/dist/**"/>
