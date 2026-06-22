@@ -39,7 +39,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
-import static com.graphhopper.json.Statement.If;
+import static com.graphhopper.json.Statement.*;
+import static com.graphhopper.json.Statement.Op.LIMIT;
 import static com.graphhopper.json.Statement.Op.MULTIPLY;
 import static com.graphhopper.util.Parameters.Algorithms.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -109,15 +110,15 @@ public class RoutingAlgorithmWithOSMTest {
     @Test
     public void testMonacoMotorcycleCurvature() {
         List<Query> queries = new ArrayList<>();
-        queries.add(new Query(43.730729, 7.42135, 43.727697, 7.419199, 2675, 117));
-        queries.add(new Query(43.727687, 7.418737, 43.74958, 7.436566, 3727, 170));
-        queries.add(new Query(43.728677, 7.41016, 43.739213, 7.4277, 2769, 167));
-        queries.add(new Query(43.733802, 7.413433, 43.739662, 7.424355, 2373, 137));
-        queries.add(new Query(43.730949, 7.412338, 43.739643, 7.424542, 2203, 116));
+        queries.add(new Query(43.730729, 7.42135, 43.727697, 7.419199, 2669, 117));
+        queries.add(new Query(43.727687, 7.418737, 43.74958, 7.436566, 3730, 170));
+        queries.add(new Query(43.728677, 7.41016, 43.739213, 7.4277, 2732, 167));
+        queries.add(new Query(43.733802, 7.413433, 43.739662, 7.424355, 2368, 137));
+        queries.add(new Query(43.730949, 7.412338, 43.739643, 7.424542, 2198, 116));
         queries.add(new Query(43.727592, 7.419333, 43.727712, 7.419333, 0, 1));
         GraphHopper hopper = createHopper(MONACO, new Profile("car").setCustomModel(
                 CustomModel.merge(getCustomModel("motorcycle.json"), getCustomModel("curvature.json"))));
-        hopper.setEncodedValuesString("curvature,track_type,surface,road_access, road_class, car_average_speed, car_access");
+        hopper.setEncodedValuesString("curvature,track_type,surface,road_access, road_class, road_environment, car_average_speed, car_access, max_speed, ferry_speed");
         hopper.setElevationProvider(new SRTMProvider(DIR));
         hopper.importOrLoad();
         checkQueries(hopper, queries);
@@ -264,12 +265,12 @@ public class RoutingAlgorithmWithOSMTest {
     public void testMonacoFoot3D() {
         // most routes have same number of points as testMonaceFoot results but longer distance due to elevation difference
         List<Query> queries = createMonacoFoot();
-        queries.get(0).getPoints().get(1).expectedDistance = 1627;
-        queries.get(2).getPoints().get(1).expectedDistance = 2250;
-        queries.get(3).getPoints().get(1).expectedDistance = 1482;
+        queries.get(0).getPoints().get(1).expectedDistance = 1603;
+        queries.get(2).getPoints().get(1).expectedDistance = 2234;
+        queries.get(3).getPoints().get(1).expectedDistance = 1478;
 
         // or slightly longer tour with less nodes: list.get(1).setDistance(1, 3610);
-        queries.get(1).getPoints().get(1).expectedDistance = 3573;
+        queries.get(1).getPoints().get(1).expectedDistance = 3576;
         queries.get(1).getPoints().get(1).expectedPoints = 149;
 
         Profile profile = TestProfiles.accessSpeedAndPriority("foot");
@@ -316,26 +317,27 @@ public class RoutingAlgorithmWithOSMTest {
     @Test
     public void testMonacoBike3D() {
         List<Query> queries = new ArrayList<>();
-        // 1. alternative: go over steps 'Rampe Major' => 1.7km vs. around 2.7km
-        queries.add(new Query(43.730864, 7.420771, 43.727687, 7.418737, 2702, 111));
+        // 1. alternative: go over steps 'Rampe Major' => 1.7km vs. around 2.4km after BridgeTunnelTowerCorrection
+        queries.add(new Query(43.730864, 7.420771, 43.727687, 7.418737, 2373, 111));
         // 2.
-        queries.add(new Query(43.728499, 7.417907, 43.74958, 7.436566, 4208, 228));
+        queries.add(new Query(43.728499, 7.417907, 43.74958, 7.436566, 4224, 233));
         // 3.
-        queries.add(new Query(43.728677, 7.41016, 43.739213, 7.427806, 2776, 167));
+        queries.add(new Query(43.728677, 7.41016, 43.739213, 7.427806, 2739, 167));
         // 4.
-        queries.add(new Query(43.733802, 7.413433, 43.739662, 7.424355, 1593, 85));
+        queries.add(new Query(43.733802, 7.413433, 43.739662, 7.424355, 1589, 85));
 
         // try reverse direction
         // 1.
-        queries.add(new Query(43.727687, 7.418737, 43.730864, 7.420771, 2598, 115));
-        queries.add(new Query(43.74958, 7.436566, 43.728499, 7.417907, 4250, 165));
-        queries.add(new Query(43.739213, 7.427806, 43.728677, 7.41016, 2806, 145));
+        queries.add(new Query(43.727687, 7.418737, 43.730864, 7.420771, 2585, 115));
+        queries.add(new Query(43.74958, 7.436566, 43.728499, 7.417907, 3976, 181));
+        queries.add(new Query(43.739213, 7.427806, 43.728677, 7.41016, 2773, 145));
         // 4. avoid tunnel(s)!
         queries.add(new Query(43.739662, 7.424355, 43.733802, 7.413433, 1901, 116));
         // tests here still assert that reverse oneways are excluded
         GraphHopper hopper = createHopper(MONACO,
                 new Profile("bike").setCustomModel(CustomModel.merge(getCustomModel("bike.json"), getCustomModel("bike_elevation.json")).
                         addToPriority(If("!bike_access", MULTIPLY, "0"))));
+        hopper.setEncodedValuesString("average_slope, max_slope, " + hopper.getEncodedValuesString());
         hopper.setElevationProvider(new SRTMProvider(DIR));
         hopper.importOrLoad();
         checkQueries(hopper, queries);
@@ -388,7 +390,7 @@ public class RoutingAlgorithmWithOSMTest {
         List<Query> queries = new ArrayList<>();
         // for mtb it is also ok to go over steps (43.7318,7.423) -> 1900m vs 2600m (in latest OSM data all bikes are forbidden and steps aren't taken)
         queries.add(new Query(43.730864, 7.420771, 43.727687, 7.418737, 2594, 111));
-        queries.add(new Query(43.727687, 7.418737, 43.74958, 7.436566, 3655, 185));
+        queries.add(new Query(43.727687, 7.418737, 43.74958, 7.436566, 3665, 186));
         queries.add(new Query(43.728677, 7.41016, 43.739213, 7.427806, 2651, 167));
         // hard to select between secondary and primary (both are AVOID for mtb)
         queries.add(new Query(43.733802, 7.413433, 43.739662, 7.424355, 1867, 107));
@@ -409,7 +411,7 @@ public class RoutingAlgorithmWithOSMTest {
     @Test
     public void testMonacoRacingBike() {
         List<Query> queries = new ArrayList<>();
-        queries.add(new Query(43.730864, 7.420771, 43.727687, 7.418737, 2594, 111));
+        queries.add(new Query(43.730864, 7.420771, 43.727687, 7.418737, 2597, 118)); // watch out, this route has an alternative that looks very different but has almost identical weight
         queries.add(new Query(43.727687, 7.418737, 43.74958, 7.436566, 3615, 184));
         queries.add(new Query(43.728677, 7.41016, 43.739213, 7.427806, 2651, 167));
         queries.add(new Query(43.733802, 7.413433, 43.739662, 7.424355, 1516, 86));
@@ -431,21 +433,24 @@ public class RoutingAlgorithmWithOSMTest {
     @Test
     public void testKremsBikeRelation() {
         List<Query> queries = new ArrayList<>();
-        queries.add(new Query(48.409523, 15.602394, 48.375466, 15.72916, 12491, 159));
-        queries.add(new Query(48.410061, 15.63951, 48.411386, 15.604899, 3077, 79));
-        queries.add(new Query(48.412294, 15.62007, 48.398306, 15.609667, 3965, 94));
+        queries.add(new Query(48.409523, 15.602394, 48.375466, 15.72916, 12574, 169));
+        queries.add(new Query(48.410061, 15.63951, 48.411386, 15.604899, 3103, 95));
+        queries.add(new Query(48.412294, 15.62007, 48.398306, 15.609667, 3965, 95));
 
-        GraphHopper hopper = createHopper(KREMS,
-                TestProfiles.accessSpeedAndPriority("bike"));
+        Profile bikeProfile = new Profile("bike").setCustomModel(new CustomModel().
+                addToPriority(If("bike_access", MULTIPLY, "bike_priority")).
+                addToPriority(ElseIf("bike_network != MISSING", MULTIPLY, "1.8")).
+                addToPriority(Else(MULTIPLY, "0")).
+                addToSpeed(If("true", LIMIT, "bike_average_speed")));
+
+        GraphHopper hopper = createHopper(KREMS, bikeProfile);
         hopper.importOrLoad();
         checkQueries(hopper, queries);
         hopper.getBaseGraph();
 
         Helper.removeDir(new File(GH_LOCATION));
 
-        hopper = createHopper(KREMS,
-                TestProfiles.accessSpeedAndPriority("bike"),
-                TestProfiles.accessAndSpeed("car"));
+        hopper = createHopper(KREMS, bikeProfile, TestProfiles.accessAndSpeed("car"));
         hopper.importOrLoad();
         checkQueries(hopper, queries);
     }
@@ -454,18 +459,22 @@ public class RoutingAlgorithmWithOSMTest {
     public void testKremsMountainBikeRelation() {
         List<Query> queries = new ArrayList<>();
         queries.add(new Query(48.409523, 15.602394, 48.375466, 15.72916, 12574, 169));
-        queries.add(new Query(48.410061, 15.63951, 48.411386, 15.604899, 3101, 94));
+        queries.add(new Query(48.410061, 15.63951, 48.411386, 15.604899, 3103, 95));
         queries.add(new Query(48.412294, 15.62007, 48.398306, 15.609667, 3965, 95));
 
-        GraphHopper hopper = createHopper(KREMS, TestProfiles.accessSpeedAndPriority("mtb"));
+        Profile mtbProfile = new Profile("mtb").setCustomModel(new CustomModel().
+                addToPriority(If("bike_access", MULTIPLY, "bike_priority")).
+                addToPriority(ElseIf("bike_network != MISSING", MULTIPLY, "1.8")).
+                addToPriority(Else(MULTIPLY, "0")).
+                addToSpeed(If("true", LIMIT, "bike_average_speed")));
+
+        GraphHopper hopper = createHopper(KREMS, mtbProfile);
         hopper.importOrLoad();
         checkQueries(hopper, queries);
 
         Helper.removeDir(new File(GH_LOCATION));
 
-        hopper = createHopper(KREMS,
-                TestProfiles.accessSpeedAndPriority("mtb"),
-                TestProfiles.accessSpeedAndPriority("bike"));
+        hopper = createHopper(KREMS, mtbProfile, TestProfiles.accessSpeedAndPriority("bike"));
         hopper.importOrLoad();
         checkQueries(hopper, queries);
 
@@ -560,7 +569,7 @@ public class RoutingAlgorithmWithOSMTest {
     public void testNeudrossenfeld() {
         List<Query> list = new ArrayList<>();
         // choose cycleway (Dreschenauer Straße)
-        list.add(new Query(49.987132, 11.510496, 50.018839, 11.505024, 3985, 106));
+        list.add(new Query(49.987132, 11.510496, 50.018839, 11.505024, 3983, 106));
 
         GraphHopper hopper = createHopper(BAYREUTH, TestProfiles.accessSpeedAndPriority("bike"));
         hopper.setElevationProvider(new SRTMProvider(DIR));
@@ -582,6 +591,7 @@ public class RoutingAlgorithmWithOSMTest {
 
         GraphHopper hopper = createHopper(BAYREUTH, new Profile("bike").setCustomModel(
                 CustomModel.merge(getCustomModel("bike.json"), getCustomModel("bike_elevation.json"))));
+        hopper.setEncodedValuesString("average_slope, max_slope, " + hopper.getEncodedValuesString());
         hopper.setElevationProvider(new SRTMProvider(DIR));
         hopper.importOrLoad();
         checkQueries(hopper, list);
@@ -697,12 +707,12 @@ public class RoutingAlgorithmWithOSMTest {
                 setStoreOnFlush(false).
                 setOSMFile(osmFile).
                 setProfiles(profiles).
-                setEncodedValuesString("average_slope, max_slope, hike_rating, car_access, car_average_speed, " +
-                        "foot_access, foot_priority, foot_average_speed, " +
-                        "bike_access, bike_priority, bike_average_speed, foot_network, roundabout, " +
+                setEncodedValuesString("hike_rating, car_access, car_average_speed, " +
+                        "foot_access, foot_priority, foot_average_speed, foot_network, " +
+                        "bike_access, bike_priority, bike_average_speed, bike_network, roundabout, " +
                         "mtb_access, mtb_priority, mtb_average_speed, mtb_rating, " +
                         "racingbike_access, racingbike_priority, racingbike_average_speed, " +
-                        "foot_road_access, bike_road_access, country, road_class").
+                        "foot_road_access, bike_road_access, country, road_class, road_environment, ferry_speed").
                 setGraphHopperLocation(GH_LOCATION);
         hopper.getRouterConfig().setSimplifyResponse(false);
         hopper.setMinNetworkSize(0);

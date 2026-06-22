@@ -24,9 +24,7 @@ import com.graphhopper.GHResponse;
 import com.graphhopper.ResponsePath;
 import com.graphhopper.config.Profile;
 import com.graphhopper.routing.ch.CHRoutingAlgorithmFactory;
-import com.graphhopper.routing.ev.BooleanEncodedValue;
-import com.graphhopper.routing.ev.EncodedValueLookup;
-import com.graphhopper.routing.ev.Subnetwork;
+import com.graphhopper.routing.ev.*;
 import com.graphhopper.routing.lm.LMRoutingAlgorithmFactory;
 import com.graphhopper.routing.lm.LandmarkStorage;
 import com.graphhopper.routing.querygraph.QueryGraph;
@@ -66,8 +64,6 @@ public class Router {
     protected final WeightingFactory weightingFactory;
     protected final Map<String, RoutingCHGraph> chGraphs;
     protected final Map<String, LandmarkStorage> landmarks;
-    protected final boolean chEnabled;
-    protected final boolean lmEnabled;
 
     public Router(BaseGraph graph, EncodingManager encodingManager, LocationIndex locationIndex,
                   Map<String, Profile> profilesByName, PathDetailsBuilderFactory pathDetailsBuilderFactory,
@@ -83,10 +79,6 @@ public class Router {
         this.weightingFactory = weightingFactory;
         this.chGraphs = chGraphs;
         this.landmarks = landmarks;
-        // note that his is not the same as !ghStorage.getCHConfigs().isEmpty(), because the GHStorage might have some
-        // CHGraphs that were not built yet (and possibly no CH profiles were configured).
-        this.chEnabled = !chGraphs.isEmpty();
-        this.lmEnabled = !landmarks.isEmpty();
 
         for (String profile : profilesByName.keySet()) {
             if (!encodingManager.hasEncodedValue(Subnetwork.key(profile)))
@@ -188,11 +180,9 @@ public class Router {
     }
 
     protected Solver createSolver(GHRequest request) {
-        final boolean disableCH = getDisableCH(request.getHints());
-        final boolean disableLM = getDisableLM(request.getHints());
-        if (chEnabled && !disableCH) {
+        if (chGraphs.containsKey(request.getProfile()) && !getDisableCH(request.getHints())) {
             return createCHSolver(request, profilesByName, routerConfig, encodingManager, chGraphs);
-        } else if (lmEnabled && !disableLM) {
+        } else if (landmarks.containsKey(request.getProfile()) && !getDisableLM(request.getHints())) {
             return createLMSolver(request, profilesByName, routerConfig, encodingManager, weightingFactory, graph, locationIndex, landmarks);
         } else {
             return createFlexSolver(request, profilesByName, routerConfig, encodingManager, weightingFactory, graph, locationIndex);
@@ -257,7 +247,7 @@ public class Router {
             throw new IllegalArgumentException("Alternative paths do not support the " + CURBSIDE + " parameter yet");
 
         ViaRouting.Result result = ViaRouting.calcPaths(request.getPoints(), queryGraph, snaps, directedEdgeFilter,
-                pathCalculator, request.getCurbsides(), curbsideStrictness, request.getHeadings(), passThrough);
+                pathCalculator, request.getCurbsides(), curbsideStrictness, request.getHeadings(), passThrough, encodingManager);
         if (result.paths.isEmpty())
             throw new RuntimeException("Empty paths for alternative route calculation not expected");
 
@@ -287,7 +277,7 @@ public class Router {
         boolean passThrough = getPassThrough(request.getHints());
         String curbsideStrictness = getCurbsideStrictness(request.getHints());
         ViaRouting.Result result = ViaRouting.calcPaths(request.getPoints(), queryGraph, snaps, directedEdgeFilter,
-                pathCalculator, request.getCurbsides(), curbsideStrictness, request.getHeadings(), passThrough);
+                pathCalculator, request.getCurbsides(), curbsideStrictness, request.getHeadings(), passThrough, encodingManager);
 
         if (request.getPoints().size() != result.paths.size() + 1)
             throw new RuntimeException("There should be exactly one more point than paths. points:" + request.getPoints().size() + ", paths:" + result.paths.size());
@@ -303,6 +293,7 @@ public class Router {
 
     private PathMerger createPathMerger(GHRequest request, Weighting weighting, Graph graph) {
         boolean enableInstructions = request.getHints().getBool(Parameters.Routing.INSTRUCTIONS, routerConfig.isInstructionsEnabled());
+        boolean enableViaPointInstructions = request.getHints().getBool(Parameters.Routing.VIA_POINT_INSTRUCTIONS, routerConfig.isViaPointInstructionsEnabled());
         boolean calcPoints = request.getHints().getBool(Parameters.Routing.CALC_POINTS, routerConfig.isCalcPoints());
         double wayPointMaxDistance = request.getHints().getDouble(Parameters.Routing.WAY_POINT_MAX_DISTANCE, 0.5);
         double elevationWayPointMaxDistance = request.getHints().getDouble(ELEVATION_WAY_POINT_MAX_DISTANCE, routerConfig.getElevationWayPointMaxDistance());
@@ -314,6 +305,7 @@ public class Router {
                 setCalcPoints(calcPoints).
                 setRamerDouglasPeucker(peucker).
                 setEnableInstructions(enableInstructions).
+                setEnableViaPointInstructions(enableViaPointInstructions).
                 setPathDetailsBuilders(pathDetailsBuilderFactory, request.getPathDetails()).
                 setSimplifyResponse(routerConfig.isSimplifyResponse() && wayPointMaxDistance > 0);
 

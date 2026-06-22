@@ -42,12 +42,11 @@ public class CarAverageSpeedParser extends AbstractAverageSpeedParser implements
     protected final Map<String, Integer> defaultSpeedMap = new HashMap<>();
 
     public CarAverageSpeedParser(EncodedValueLookup lookup) {
-        this(lookup.getDecimalEncodedValue(VehicleSpeed.key("car")),
-                lookup.getDecimalEncodedValue(FerrySpeed.KEY));
+        this(lookup.getDecimalEncodedValue(VehicleSpeed.key("car")));
     }
 
-    public CarAverageSpeedParser(DecimalEncodedValue speedEnc, DecimalEncodedValue ferrySpeed) {
-        super(speedEnc, ferrySpeed);
+    public CarAverageSpeedParser(DecimalEncodedValue speedEnc) {
+        super(speedEnc);
 
         badSurfaceSpeedMap.add("cobblestone");
         badSurfaceSpeedMap.add("unhewn_cobblestone");
@@ -83,8 +82,8 @@ public class CarAverageSpeedParser extends AbstractAverageSpeedParser implements
         defaultSpeedMap.put("tertiary_link", 40);
         defaultSpeedMap.put("unclassified", 30);
         defaultSpeedMap.put("residential", 30);
-        // spielstraße
-        defaultSpeedMap.put("living_street", 5);
+        defaultSpeedMap.put("living_street", 6);
+        defaultSpeedMap.put("pedestrian", 6);
         defaultSpeedMap.put("service", 20);
         // unknown road
         defaultSpeedMap.put("road", 20);
@@ -121,13 +120,8 @@ public class CarAverageSpeedParser extends AbstractAverageSpeedParser implements
 
     @Override
     public void handleWayTags(int edgeId, EdgeIntAccess edgeIntAccess, ReaderWay way) {
-        if (FerrySpeedCalculator.isFerry(way)) {
-            double ferrySpeed = FerrySpeedCalculator.minmax(ferrySpeedEnc.getDecimal(false, edgeId, edgeIntAccess), avgSpeedEnc);
-            setSpeed(false, edgeId, edgeIntAccess, ferrySpeed);
-            if (avgSpeedEnc.isStoreTwoDirections())
-                setSpeed(true, edgeId, edgeIntAccess, ferrySpeed);
+        if (FerrySpeedCalculator.isFerry(way))
             return;
-        }
 
         // get assumed speed from highway type
         double speed = getSpeed(way);

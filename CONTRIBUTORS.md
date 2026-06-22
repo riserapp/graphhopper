@@ -11,6 +11,7 @@ Here is an overview:
  * Anvoker, fixes like #1614 and helped with JUnit 5 migration #1632 
  * b3nn0, Android improvements
  * baumboi, path detail and landmark improvements
+ * baybatu, improved error for EncodingManager
  * boldtrn, one of the core developers with motorcycle knowledge :)
  * bt90, fixes like #2786
  * cgarreau, increase of routing success rate via subnetwork cleanup
@@ -35,6 +36,7 @@ Here is an overview:
  * fredao, translations 
  * gberaudo, improvements regarding elevation
  * GProbo, fixes like #2241
+ * gulbalasalamov, fix for instruction generation when unnamed link roads continue onto named major roads (#3337) 
  * HarelM, improvements regarding elevation
  * HelgeKrueger, modularization of javascript, #590
  * henningvs, doc improvements
@@ -63,6 +65,7 @@ Here is an overview:
  * michaz, one of the core developers
  * mprins, improvements for travis CI and regarding JDK9 #806
  * msbarry, fixes like #1733
+ * nakaner, documentation
  * naser13, fixes like #1923
  * njanakiev, fixes like #1560
  * NopMap, massive improvements regarding OSM, parsing and encoding, route relations
@@ -72,6 +75,7 @@ Here is an overview:
  * osamaalmaani, added missing config option for graph.encoded_values in the config-example.yml file
  * oschlueter, fixes like #1185
  * otbutz, added multiple EncodedValues
+ * PabloaRuiz, pt_BR 1i8n improvements
  * pantsleftinwash, speed parsing improvements
  * PGWelch, shapefile reader #874
  * rafaelstelles, fix deserializer web-api
@@ -85,14 +89,18 @@ Here is an overview:
  * sguill, fixes like #1683
  * shunfan-shao, fix potential flaky tests
  * skienzl, imperial units for /navigate, related to #2071
+ * SkitArgDuva, added via_point_instructions parameter
  * stefanholder, Stefan Holder, BMW AG, creating and integrating the hmm-lib (#49, #66, #69) and penalizing inner-link U-turns (#88, #91), refactored unfavoring of virtual edges #885
  * stevensnoeijen, fixes like #1568 
  * Svantulden, improved documentation and nearest API
  * taulinger, hopefully more to come 
  * thehereward, code cleanups like #620
  * tyrasd, improved toll road handling in Austria #3190
+ * Vectorial1024, country-specific speed limit issues like #3244, #3248
  * vvikas, ideas for many to many improvements and #616
  * zstadler, multiple fixes and car4wd
+ * binora, fix mode in navigation response converter
+ * jwltrr, fixed pillar node limits
 
 ## Translations
 

@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>graphhopper-web-bundle</artifactId>
     <packaging>jar</packaging>
-    <version>11.0-SNAPSHOT</version>
+    <version>12.0-SNAPSHOT</version>
     <properties>
-        <graphhopper-maps.version>0.0.0-040ae9d3f2c4a67588449027a29b0e86d93004fc
+        <graphhopper-maps.version>0.0.0-93db4a9
         </graphhopper-maps.version>
     </properties>
     <name>GraphHopper Dropwizard Bundle</name>
@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.graphhopper</groupId>
         <artifactId>graphhopper-parent</artifactId>
-        <version>11.0-SNAPSHOT</version>
+        <version>12.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -122,12 +122,14 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
-                        <!-- this is needed because we want to download the maps bundle to the target folder -->
-                        <id>create target directory</id>
-                        <phase>initialize</phase>
+                        <id>download graphhopper maps</id>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <target>
                                 <mkdir dir="${basedir}/target"/>
+                                <get src="https://registry.npmjs.org/@graphhopper/graphhopper-maps-bundle/-/graphhopper-maps-bundle-${graphhopper-maps.version}.tgz"
+                                     dest="${basedir}/target/graphhopper-maps-bundle-${graphhopper-maps.version}.tgz"
+                                     skipexisting="true"/>
                             </target>
                         </configuration>
                         <goals>
@@ -140,7 +142,7 @@
                         <configuration>
                             <target>
                                 <untar compression="gzip"
-                                       src="${basedir}/../graphhopper-graphhopper-maps-bundle-0.0.0-4718098d1db1798841a4d12f1727e8e8f7eab202.tgz"
+                                       src="${basedir}/target/graphhopper-maps-bundle-${graphhopper-maps.version}.tgz"
                                        dest="${basedir}/target/classes/com/graphhopper/maps">
                                     <patternset>
                                         <include name="package/dist/**"/>

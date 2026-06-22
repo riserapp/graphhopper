@@ -21,6 +21,7 @@ package com.graphhopper.util;
 import com.carrotsearch.hppc.BitSet;
 import com.carrotsearch.hppc.IntArrayList;
 import com.carrotsearch.hppc.IntIndexedContainer;
+import com.carrotsearch.hppc.LongArrayList;
 import com.carrotsearch.hppc.cursors.IntCursor;
 import com.carrotsearch.hppc.sorting.IndirectComparator;
 import com.carrotsearch.hppc.sorting.IndirectSort;
@@ -101,6 +102,18 @@ public class ArrayUtil {
     public static IntArrayList reverse(IntArrayList list) {
         final int[] buffer = list.buffer;
         int tmp;
+        for (int start = 0, end = list.size() - 1; start < end; start++, end--) {
+            // swap the values
+            tmp = buffer[start];
+            buffer[start] = buffer[end];
+            buffer[end] = tmp;
+        }
+        return list;
+    }
+
+    public static LongArrayList reverse(LongArrayList list) {
+        final long[] buffer = list.buffer;
+        long tmp;
         for (int start = 0, end = list.size() - 1; start < end; start++, end--) {
             // swap the values
             tmp = buffer[start];
@@ -263,4 +276,17 @@ public class ArrayUtil {
         int sizeWithoutDuplicates = removeConsecutiveDuplicates(result, size);
         return Arrays.copyOf(result, sizeWithoutDuplicates);
     }
+
+    public static int getLast(IntArrayList list) {
+        if (list.isEmpty())
+            throw new IllegalArgumentException("Cannot get last element of an empty list");
+        return list.get(list.size() - 1);
+    }
+
+    public static int getLast(int[] array) {
+        if (array.length == 0)
+            throw new IllegalArgumentException("Cannot get last element of an empty array");
+        return array[array.length - 1];
+    }
+
 }

@@ -53,51 +53,51 @@ public class PrepareContractionHierarchiesTest {
     // |         |    |
     // 17-16-...-11<-/
     private static void initDirected2(Graph g, DecimalEncodedValue speedEnc) {
-        g.edge(0, 1).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(1, 2).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(2, 3).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(3, 4).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(4, 5).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(5, 6).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(6, 7).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(7, 8).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(8, 9).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(9, 10).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(10, 11).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(11, 12).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(11, 9).setDistance(3).set(speedEnc, 60, 0);
-        g.edge(12, 13).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(13, 14).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(14, 15).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(15, 16).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(16, 17).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(17, 0).setDistance(1).set(speedEnc, 60, 60);
+        g.edge(0, 1).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(1, 2).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(2, 3).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(3, 4).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(4, 5).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(5, 6).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(6, 7).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(7, 8).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(8, 9).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(9, 10).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(10, 11).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(11, 12).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(11, 9).setDistance(300).set(speedEnc, 60, 0);
+        g.edge(12, 13).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(13, 14).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(14, 15).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(15, 16).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(16, 17).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(17, 0).setDistance(100).set(speedEnc, 60, 60);
     }
 
     // prepare-routing.svg
     private static void initShortcutsGraph(Graph g, DecimalEncodedValue speedEnc) {
-        g.edge(0, 1).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(0, 2).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(1, 2).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(2, 3).setDistance(1.5).set(speedEnc, 60, 60);
-        g.edge(1, 4).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(2, 9).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(9, 3).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(10, 3).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(4, 5).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(5, 6).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(6, 7).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(7, 8).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(8, 9).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(4, 11).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(9, 14).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(10, 14).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(11, 12).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(12, 15).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(12, 13).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(13, 16).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(15, 16).setDistance(2).set(speedEnc, 60, 60);
-        g.edge(14, 16).setDistance(1).set(speedEnc, 60, 60);
+        g.edge(0, 1).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(0, 2).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(1, 2).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(2, 3).setDistance(150).set(speedEnc, 60, 60);
+        g.edge(1, 4).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(2, 9).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(9, 3).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(10, 3).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(4, 5).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(5, 6).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(6, 7).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(7, 8).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(8, 9).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(4, 11).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(9, 14).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(10, 14).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(11, 12).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(12, 15).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(12, 13).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(13, 16).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(15, 16).setDistance(200).set(speedEnc, 60, 60);
+        g.edge(14, 16).setDistance(100).set(speedEnc, 60, 60);
     }
 
     private static void initExampleGraph(Graph g, DecimalEncodedValue speedEnc) {
@@ -107,13 +107,13 @@ public class PrepareContractionHierarchiesTest {
         //   /    |
         //  4-----3
         //
-        g.edge(0, 1).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(0, 2).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(0, 4).setDistance(3).set(speedEnc, 60, 60);
-        g.edge(1, 2).setDistance(3).set(speedEnc, 60, 60);
-        g.edge(2, 3).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(4, 3).setDistance(2).set(speedEnc, 60, 60);
-        g.edge(5, 1).setDistance(2).set(speedEnc, 60, 60);
+        g.edge(0, 1).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(0, 2).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(0, 4).setDistance(300).set(speedEnc, 60, 60);
+        g.edge(1, 2).setDistance(300).set(speedEnc, 60, 60);
+        g.edge(2, 3).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(4, 3).setDistance(200).set(speedEnc, 60, 60);
+        g.edge(5, 1).setDistance(200).set(speedEnc, 60, 60);
     }
 
     @BeforeEach
@@ -152,12 +152,12 @@ public class PrepareContractionHierarchiesTest {
 
     @Test
     public void testDirectedGraph() {
-        g.edge(5, 4).setDistance(3).set(speedEnc, 60, 0);
-        g.edge(4, 5).setDistance(10).set(speedEnc, 60, 0);
-        g.edge(2, 4).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(5, 2).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(3, 5).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(4, 3).setDistance(1).set(speedEnc, 60, 0);
+        g.edge(5, 4).setDistance(300).set(speedEnc, 60, 0);
+        g.edge(4, 5).setDistance(1000).set(speedEnc, 60, 0);
+        g.edge(2, 4).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(5, 2).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(3, 5).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(4, 3).setDistance(100).set(speedEnc, 60, 0);
         g.freeze();
         assertEquals(6, g.getEdges());
         PrepareContractionHierarchies prepare = createPrepareContractionHierarchies(g);
@@ -167,7 +167,7 @@ public class PrepareContractionHierarchiesTest {
         assertEquals(6 + 2, routingCHGraph.getEdges());
         RoutingAlgorithm algo = new CHRoutingAlgorithmFactory(routingCHGraph).createAlgo(new PMap());
         Path p = algo.calcPath(4, 2);
-        assertEquals(3, p.getDistance(), 1e-6);
+        assertEquals(300, p.getDistance(), 1e-6);
         assertEquals(IntArrayList.from(4, 3, 5, 2), p.calcNodes());
     }
 
@@ -189,7 +189,7 @@ public class PrepareContractionHierarchiesTest {
         assertEquals(oldCount + numShortcuts, routingCHGraph.getEdges());
         RoutingAlgorithm algo = new CHRoutingAlgorithmFactory(routingCHGraph).createAlgo(new PMap());
         Path p = algo.calcPath(0, 10);
-        assertEquals(10, p.getDistance(), 1e-6);
+        assertEquals(1000, p.getDistance(), 1e-6);
         assertEquals(IntArrayList.from(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), p.calcNodes());
     }
 
@@ -201,46 +201,46 @@ public class PrepareContractionHierarchiesTest {
         // -15-1--2--3--4       /     /
         //     /         \-5->6/     /
         //  -14            \________/
-        g.edge(16, 0).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(0, 9).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(0, 17).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(9, 10).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(10, 11).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(11, 28).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(28, 29).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(29, 30).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(30, 31).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(31, 4).setDistance(1).set(speedEnc, 60, 60);
+        g.edge(16, 0).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(0, 9).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(0, 17).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(9, 10).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(10, 11).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(11, 28).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(28, 29).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(29, 30).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(30, 31).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(31, 4).setDistance(100).set(speedEnc, 60, 60);
 
-        g.edge(17, 1).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(15, 1).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(14, 1).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(14, 18).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(18, 19).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(19, 20).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(20, 15).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(19, 21).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(21, 16).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(1, 2).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(2, 3).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(3, 4).setDistance(1).set(speedEnc, 60, 60);
+        g.edge(17, 1).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(15, 1).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(14, 1).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(14, 18).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(18, 19).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(19, 20).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(20, 15).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(19, 21).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(21, 16).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(1, 2).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(2, 3).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(3, 4).setDistance(100).set(speedEnc, 60, 60);
 
-        g.edge(4, 5).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(5, 6).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(6, 7).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(7, 13).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(13, 12).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(12, 4).setDistance(1).set(speedEnc, 60, 0);
+        g.edge(4, 5).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(5, 6).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(6, 7).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(7, 13).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(13, 12).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(12, 4).setDistance(100).set(speedEnc, 60, 0);
 
-        g.edge(7, 8).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(8, 22).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(22, 23).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(23, 24).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(24, 25).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(25, 27).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(27, 5).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(25, 26).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(26, 25).setDistance(1).set(speedEnc, 60, 0);
+        g.edge(7, 8).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(8, 22).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(22, 23).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(23, 24).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(24, 25).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(25, 27).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(27, 5).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(25, 26).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(26, 25).setDistance(100).set(speedEnc, 60, 0);
     }
 
     @Test
@@ -270,14 +270,14 @@ public class PrepareContractionHierarchiesTest {
         //            2
         //            v
         //            7
-        g.edge(8, 3).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(3, 6).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(6, 1).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(1, 5).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(4, 0).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(0, 6).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(6, 2).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(2, 7).setDistance(1).set(speedEnc, 60, 0);
+        g.edge(8, 3).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(3, 6).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(6, 1).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(1, 5).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(4, 0).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(0, 6).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(6, 2).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(2, 7).setDistance(100).set(speedEnc, 60, 0);
         g.freeze();
 
         PrepareContractionHierarchies prepare = createPrepareContractionHierarchies(g)
@@ -310,9 +310,9 @@ public class PrepareContractionHierarchiesTest {
         // the problem is very intricate and a combination of all these things:
         // * contraction hierarchies
         // * stall-on-demand (without sod there is no problem, at least in this test)
-        // * shortcuts weight rounding
+        // * shortcuts weight rounding (now gone)
         // * via nodes/virtual edges and the associated weight precision (without virtual nodes between source and target
-        //   there is no problem, but this can happen for via routes
+        //   there is no problem, but this can happen for via routes)
         // * the fact that the CHLevelEdgeFilter always accepts virtual nodes
         // here we will construct a special case where a connection is not found without the fix in #1574.
 
@@ -333,13 +333,13 @@ public class PrepareContractionHierarchiesTest {
         // start 0 - 3 - x - 1 - 2
         //             \         |
         //               sc ---- 4 - 5 - 6 - 7 finish
-        g.edge(0, 3).setDistance(1).set(speedEnc, 60, 60);
-        EdgeIteratorState edge31 = g.edge(3, 1).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(1, 2).setDistance(1).set(speedEnc, 60, 60);
-        EdgeIteratorState edge24 = g.edge(2, 4).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(4, 5).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(5, 6).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(6, 7).setDistance(1).set(speedEnc, 60, 60);
+        g.edge(0, 3).setDistance(0).set(speedEnc, 60, 60);
+        EdgeIteratorState edge31 = g.edge(3, 1).setDistance(0).set(speedEnc, 60, 60);
+        g.edge(1, 2).setDistance(0).set(speedEnc, 60, 60);
+        EdgeIteratorState edge24 = g.edge(2, 4).setDistance(0).set(speedEnc, 60, 60);
+        g.edge(4, 5).setDistance(0).set(speedEnc, 60, 60);
+        g.edge(5, 6).setDistance(0).set(speedEnc, 60, 60);
+        g.edge(6, 7).setDistance(0).set(speedEnc, 60, 60);
         updateDistancesFor(g, 0, 0.001, 0.0000);
         updateDistancesFor(g, 3, 0.001, 0.0001);
         updateDistancesFor(g, 1, 0.001, 0.0002);
@@ -353,7 +353,7 @@ public class PrepareContractionHierarchiesTest {
         // the weight of edge 3-1 is chosen such that node 2 gets stalled in the forward search via the incoming shortcut
         // at node 2 coming from 3. this happens because due to the virtual node x between 3 and 1, the weight of the
         // spt entry at 2 is different to the sum of the weights of the spt entry at node 3 and the shortcut edge. this
-        // is due to different floating point rounding arithmetic of shortcuts and virtual edges on the query graph.
+        // is (no: was!) due to different floating point rounding arithmetic of shortcuts and virtual edges on the query graph.
         edge31.set(speedEnc, 12, 12);
 
         // just stalling node 2 alone would not lead to connection not found, because the shortcut 3-4 still finds node
@@ -379,17 +379,9 @@ public class PrepareContractionHierarchiesTest {
 
         QueryGraph queryGraph = QueryGraph.create(g, snap);
 
-        // we make sure our weight fine tunings do what they are supposed to
-        double weight03 = getWeight(queryGraph, weighting, 0, 3);
-        double scWeight23 = weight03 + getEdge(routingCHGraph, 2, 3, true).getWeight(false);
-        double scWeight34 = weight03 + getEdge(routingCHGraph, 3, 4, false).getWeight(false);
-        double sptWeight2 = weight03 + getWeight(queryGraph, weighting, 3, 8) + getWeight(queryGraph, weighting, 8, 1) + getWeight(queryGraph, weighting, 1, 2);
-        double sptWeight4 = sptWeight2 + getWeight(queryGraph, weighting, 2, 4);
-        assertTrue(scWeight23 < sptWeight2, "incoming shortcut weight 3->2 should be smaller than sptWeight at node 2 to make sure 2 gets stalled");
-        assertTrue(sptWeight4 < scWeight34, "sptWeight at node 4 should be smaller than shortcut weight 3->4 to make sure node 4 gets stalled");
-
+        // we used to make sure our weight fine tunings do what they were supposed to do, but since we got rid of shortcut weight rounding altogether this no longer makes sense
         Path path = new CHRoutingAlgorithmFactory(routingCHGraph, queryGraph).createAlgo(new PMap()).calcPath(0, 7);
-        assertEquals(IntArrayList.from(0, 3, 8, 1, 2, 4, 5, 6, 7), path.calcNodes(), "wrong or no path found");
+        assertEquals(IntArrayList.from(0, 3, 1, 2, 4, 5, 6, 7), path.calcNodes(), "wrong or no path found");
     }
 
     private double getWeight(Graph graph, Weighting w, int from, int to) {
@@ -421,10 +413,10 @@ public class PrepareContractionHierarchiesTest {
         //  /--1
         // -0--/
         //  |
-        g.edge(0, 1).setDistance(10).set(speedEnc, 60, 60);
-        g.edge(0, 1).setDistance(4).set(speedEnc, 60, 60);
-        g.edge(0, 2).setDistance(10).set(speedEnc, 60, 60);
-        g.edge(0, 3).setDistance(10).set(speedEnc, 60, 60);
+        g.edge(0, 1).setDistance(1000).set(speedEnc, 60, 60);
+        g.edge(0, 1).setDistance(400).set(speedEnc, 60, 60);
+        g.edge(0, 2).setDistance(1000).set(speedEnc, 60, 60);
+        g.edge(0, 3).setDistance(1000).set(speedEnc, 60, 60);
         PrepareContractionHierarchies prepare = createPrepareContractionHierarchies(g);
         PrepareContractionHierarchies.Result result = prepare.doWork();
         assertEquals(0, result.getShortcuts());
@@ -437,15 +429,15 @@ public class PrepareContractionHierarchiesTest {
         // 0-1->-2--3--4
         //   \-<-/
         //
-        g.edge(1, 2).setDistance(1).set(speedEnc, 60, 0);
-        g.edge(2, 1).setDistance(1).set(speedEnc, 60, 0);
+        g.edge(1, 2).setDistance(100).set(speedEnc, 60, 0);
+        g.edge(2, 1).setDistance(100).set(speedEnc, 60, 0);
 
-        g.edge(5, 0).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(5, 6).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(0, 1).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(2, 3).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(3, 4).setDistance(1).set(speedEnc, 60, 60);
-        g.edge(6, 3).setDistance(1).set(speedEnc, 60, 60);
+        g.edge(5, 0).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(5, 6).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(0, 1).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(2, 3).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(3, 4).setDistance(100).set(speedEnc, 60, 60);
+        g.edge(6, 3).setDistance(100).set(speedEnc, 60, 60);
 
         PrepareContractionHierarchies prepare = createPrepareContractionHierarchies(g);
         useNodeOrdering(prepare, new int[]{4, 1, 2, 0, 5, 6, 3});
@@ -482,8 +474,8 @@ public class PrepareContractionHierarchiesTest {
             iter.set(bikeSpeedEnc, 18, 18);
         graph.freeze();
 
-        checkPath(graph, carProfile, 7, 5, IntArrayList.from(3, 9, 14, 16, 13, 12), new int[]{0, 5, 6, 7, 8, 10, 11, 13, 15, 1, 3, 9, 14, 16, 12, 4, 2});
-        checkPath(graph, bikeProfile, 7, 5, IntArrayList.from(3, 9, 14, 16, 13, 12), new int[]{0, 5, 6, 7, 8, 10, 11, 13, 15, 1, 3, 9, 14, 16, 12, 4, 2});
+        checkPath(graph, carProfile, 7, 500, IntArrayList.from(3, 9, 14, 16, 13, 12), new int[]{0, 5, 6, 7, 8, 10, 11, 13, 15, 1, 3, 9, 14, 16, 12, 4, 2});
+        checkPath(graph, bikeProfile, 7, 500, IntArrayList.from(3, 9, 14, 16, 13, 12), new int[]{0, 5, 6, 7, 8, 10, 11, 13, 15, 1, 3, 9, 14, 16, 12, 4, 2});
     }
 
     @Test
@@ -508,9 +500,9 @@ public class PrepareContractionHierarchiesTest {
 
         graph.freeze();
 
-        checkPath(graph, carConfig, 7, 5, IntArrayList.from(3, 9, 14, 16, 13, 12), new int[]{0, 5, 6, 7, 8, 10, 11, 13, 15, 1, 3, 9, 14, 16, 12, 4, 2});
+        checkPath(graph, carConfig, 7, 500, IntArrayList.from(3, 9, 14, 16, 13, 12), new int[]{0, 5, 6, 7, 8, 10, 11, 13, 15, 1, 3, 9, 14, 16, 12, 4, 2});
         // detour around blocked 9,14
-        checkPath(graph, bikeConfig, 9, 5, IntArrayList.from(3, 10, 14, 16, 13, 12), new int[]{0, 5, 6, 7, 8, 10, 11, 13, 14, 15, 9, 1, 4, 3, 2, 12, 16});
+        checkPath(graph, bikeConfig, 9, 500, IntArrayList.from(3, 10, 14, 16, 13, 12), new int[]{0, 5, 6, 7, 8, 10, 11, 13, 14, 15, 9, 1, 4, 3, 2, 12, 16});
     }
 
     @Test
@@ -531,7 +523,7 @@ public class PrepareContractionHierarchiesTest {
         int numQueries = 100;
         long seed = System.nanoTime();
         Random rnd = new Random(seed);
-        GHUtility.buildRandomGraph(graph, rnd, numNodes, 1.3, true, null, null, 0.9, 0.8);
+        RandomGraph.start().seed(seed).nodes(numNodes).fill(graph, null);
         AllEdgesIterator iter = graph.getAllEdges();
         while (iter.next()) {
             double car1Fwd = rnd.nextDouble() * 100;
