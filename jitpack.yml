@@ -1,0 +1,12 @@
+before_install:
+  - sdk install java 25-open
+  - sdk use java 25-open
+  - sdk install maven 3.9.9
+  - sdk use maven 3.9.9
+install:
+  - wget https://nodejs.org/dist/v20.18.0/node-v20.18.0-linux-x64.tar.gz
+  - tar -xzf node-v20.18.0-linux-x64.tar.gz
+  - export PATH="$PATH:$(pwd)/node-v20.18.0-linux-x64/bin"
+  - mvn --version
+  - java -version
+  - mvn clean install -X -DskipTests -e
